@@ -30,9 +30,10 @@ body{
     min-height:100vh;
 }
 
-/* PANTALLA DE ACCESO */
+/* PANTALLAS DE ACCESO */
 
-#pantallaAcceso{
+#pantallaAcceso,
+#accesoSeccion{
     position:fixed;
     inset:0;
     z-index:99999;
@@ -41,6 +42,11 @@ body{
     align-items:center;
     justify-content:center;
     padding:20px;
+}
+
+#accesoSeccion{
+    display:none;
+    z-index:100000;
 }
 
 .login-card{
@@ -136,6 +142,23 @@ body{
     margin-top:25px;
     color:#98a2b3;
     font-size:11px;
+}
+
+.login-back{
+    width:100%;
+    margin-top:10px;
+    padding:12px;
+    border:1px solid var(--borde);
+    background:#f5f7fa;
+    color:var(--azul);
+    border-radius:8px;
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.login-back:hover{
+    background:#e9eef5;
 }
 
 /* SISTEMA */
@@ -500,9 +523,7 @@ footer{
 
 <body>
 
-<!-- ==========================================
-     PANTALLA DE ACCESO
-=========================================== -->
+<!-- ACCESO GENERAL -->
 
 <div id="pantallaAcceso">
 
@@ -547,9 +568,58 @@ footer{
 
 </div>
 
-<!-- ==========================================
-     CONTENIDO DEL SISTEMA
-=========================================== -->
+<!-- ACCESO A HISTORIAL Y DASHBOARD -->
+
+<div id="accesoSeccion">
+
+    <div class="login-card">
+
+        <div class="login-logo">S</div>
+
+        <h1 id="tituloAccesoSeccion">ACCESO RESTRINGIDO</h1>
+
+        <p id="descripcionAccesoSeccion">
+            Ingresá la contraseña para continuar.
+        </p>
+
+        <form id="formAccesoSeccion">
+
+            <label for="claveSeccion">Contraseña de acceso</label>
+
+            <input
+                type="password"
+                id="claveSeccion"
+                placeholder="Ingresar contraseña"
+                autocomplete="off"
+                required
+            >
+
+            <button type="submit" class="login-btn">
+                INGRESAR
+            </button>
+
+            <div id="errorSeccion" class="login-error">
+                Contraseña incorrecta. Intentá nuevamente.
+            </div>
+
+            <button
+                type="button"
+                class="login-back"
+                onclick="cerrarAccesoSeccion()">
+                VOLVER
+            </button>
+
+        </form>
+
+        <div class="login-footer">
+            Stellantis | Acceso restringido
+        </div>
+
+    </div>
+
+</div>
+
+<!-- CONTENIDO DEL SISTEMA -->
 
 <div id="contenidoSistema">
 
@@ -947,12 +1017,25 @@ footer{
 <script>
 
 /* =====================================================
-   ACCESO CON CONTRASEÑA
+   CONTRASEÑAS Y ESTADO DE ACCESOS
 ===================================================== */
 
 const CLAVE_ACCESO = "Sparandino26";
+const CLAVE_HISTORIAL = "Sparandino1122";
+const CLAVE_DASHBOARD = "Sparandino1122";
 
 let sistemaIniciado = false;
+
+let seccionesAutorizadas = {
+    historial:false,
+    dashboard:false
+};
+
+let seccionPendiente = null;
+
+/* =====================================================
+   ACCESO GENERAL
+===================================================== */
 
 document.getElementById("formAcceso").addEventListener("submit",function(e){
 
@@ -987,6 +1070,113 @@ document.getElementById("formAcceso").addEventListener("submit",function(e){
     }
 
 });
+
+/* =====================================================
+   ABRIR ACCESO A UNA SECCIÓN
+===================================================== */
+
+function abrirAccesoSeccion(nombre){
+
+    seccionPendiente = nombre;
+
+    const modal = document.getElementById("accesoSeccion");
+    const titulo = document.getElementById("tituloAccesoSeccion");
+    const descripcion = document.getElementById("descripcionAccesoSeccion");
+    const input = document.getElementById("claveSeccion");
+    const error = document.getElementById("errorSeccion");
+
+    if(nombre === "historial"){
+
+        titulo.textContent = "ACCESO AL HISTORIAL";
+
+        descripcion.innerHTML =
+            "Historial de Horas Extras<br>Ingresá la contraseña para consultar los registros.";
+
+    }else if(nombre === "dashboard"){
+
+        titulo.textContent = "ACCESO AL DASHBOARD";
+
+        descripcion.innerHTML =
+            "Dashboard de Horas Extras<br>Ingresá la contraseña para visualizar las estadísticas.";
+
+    }
+
+    input.value = "";
+    error.style.display = "none";
+
+    modal.style.display = "flex";
+
+    setTimeout(()=>{
+        input.focus();
+    },100);
+
+}
+
+/* =====================================================
+   VALIDAR ACCESO A HISTORIAL O DASHBOARD
+===================================================== */
+
+document.getElementById("formAccesoSeccion").addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    const clave = document.getElementById("claveSeccion").value;
+    const error = document.getElementById("errorSeccion");
+
+    let claveCorrecta = "";
+
+    if(seccionPendiente === "historial"){
+        claveCorrecta = CLAVE_HISTORIAL;
+    }
+
+    if(seccionPendiente === "dashboard"){
+        claveCorrecta = CLAVE_DASHBOARD;
+    }
+
+    if(clave === claveCorrecta){
+
+        const seccionAutorizada = seccionPendiente;
+
+        seccionesAutorizadas[seccionAutorizada] = true;
+
+        document.getElementById("accesoSeccion").style.display = "none";
+
+        document.getElementById("claveSeccion").value = "";
+        error.style.display = "none";
+
+        seccionPendiente = null;
+
+        const indiceBoton = seccionAutorizada === "historial" ? 1 : 2;
+
+        const boton = document.querySelectorAll(".tab")[indiceBoton];
+
+        cambiarPestana(seccionAutorizada,boton);
+
+    }else{
+
+        error.style.display = "block";
+
+        document.getElementById("claveSeccion").value = "";
+        document.getElementById("claveSeccion").focus();
+
+    }
+
+});
+
+/* =====================================================
+   CERRAR ACCESO A SECCIÓN
+===================================================== */
+
+function cerrarAccesoSeccion(){
+
+    document.getElementById("accesoSeccion").style.display = "none";
+
+    document.getElementById("claveSeccion").value = "";
+    document.getElementById("errorSeccion").style.display = "none";
+
+    seccionPendiente = null;
+
+}
 
 /* =====================================================
    CONFIGURACIÓN SUPABASE
@@ -1108,6 +1298,18 @@ function formatoHoras(valor){
 ===================================================== */
 
 function cambiarPestana(nombre, boton){
+
+    // Solicitar contraseña para Historial y Dashboard.
+
+    if(
+        (nombre === "historial" || nombre === "dashboard") &&
+        !seccionesAutorizadas[nombre]
+    ){
+
+        abrirAccesoSeccion(nombre);
+        return;
+
+    }
 
     document.querySelectorAll(".tab").forEach(tab=>{
         tab.classList.remove("active");
