@@ -30,10 +30,7 @@ body{
     min-height:100vh;
 }
 
-/* PANTALLAS DE ACCESO */
-
-#pantallaAcceso,
-#accesoSeccion{
+#pantallaAcceso,#accesoSeccion{
     position:fixed;
     inset:0;
     z-index:99999;
@@ -124,9 +121,7 @@ body{
     transition:.2s;
 }
 
-.login-btn:hover{
-    background:var(--azul3);
-}
+.login-btn:hover{background:var(--azul3)}
 
 .login-error{
     display:none;
@@ -157,15 +152,9 @@ body{
     cursor:pointer;
 }
 
-.login-back:hover{
-    background:#e9eef5;
-}
+.login-back:hover{background:#e9eef5}
 
-/* SISTEMA */
-
-#contenidoSistema{
-    display:none;
-}
+#contenidoSistema{display:none}
 
 header{
     background:linear-gradient(120deg,var(--azul),var(--azul2));
@@ -384,7 +373,7 @@ table{
     width:100%;
     border-collapse:collapse;
     font-size:13px;
-    min-width:1050px;
+    min-width:1150px;
 }
 
 th{
@@ -480,18 +469,110 @@ tbody tr:hover{background:#f7f9fc}
     width:100%;
 }
 
-.chart-card.full{
-    grid-column:1/-1;
-}
+.chart-card.full{grid-column:1/-1}
 
-.chart-card.full .chart-container{
-    height:340px;
-}
+.chart-card.full .chart-container{height:340px}
 
 .dashboard-status{
     color:var(--gris);
     font-size:12px;
     margin-bottom:15px;
+}
+
+.tipo-normal{color:#1d4d7c;font-weight:bold}
+.tipo-extra{color:#16834a;font-weight:bold}
+.tipo-compensar{color:#a16207;font-weight:bold}
+
+/* PANEL DE DETALLE INTERACTIVO */
+
+.detalle-grafico{
+    display:none;
+    background:white;
+    border:1px solid #dce2ea;
+    border-radius:12px;
+    padding:24px;
+    margin-top:20px;
+    box-shadow:0 3px 12px #0000000a;
+}
+
+.detalle-grafico.visible{
+    display:block;
+}
+
+.detalle-cabecera{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+}
+
+.detalle-cabecera h2{
+    color:var(--azul);
+    font-size:19px;
+}
+
+.detalle-resumen{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.detalle-indicador{
+    background:#f1f4f8;
+    border-radius:9px;
+    padding:15px;
+}
+
+.detalle-indicador span{
+    display:block;
+    color:var(--gris);
+    font-size:12px;
+    margin-bottom:7px;
+}
+
+.detalle-indicador strong{
+    color:var(--azul);
+    font-size:23px;
+}
+
+.detalle-tabla{
+    width:100%;
+    min-width:1150px;
+    border-collapse:collapse;
+    font-size:12px;
+}
+
+.detalle-tabla th{
+    background:var(--azul2);
+    padding:12px 10px;
+}
+
+.detalle-tabla td{
+    padding:11px 10px;
+    border-bottom:1px solid #e9edf2;
+}
+
+.detalle-ayuda{
+    font-size:12px;
+    color:var(--gris);
+    margin-bottom:15px;
+}
+
+.btn-cerrar-detalle{
+    background:#e9eef5;
+    color:var(--azul);
+    border:0;
+    padding:10px 16px;
+    border-radius:7px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn-cerrar-detalle:hover{
+    background:#dce5ef;
 }
 
 footer{
@@ -517,6 +598,9 @@ footer{
     .chart-container{height:260px}
     .chart-card.full .chart-container{height:280px}
     .login-card{padding:30px 22px}
+    .detalle-grafico{padding:16px}
+    .detalle-cabecera{align-items:flex-start}
+    .btn-cerrar-detalle{width:100%}
 }
 </style>
 </head>
@@ -526,54 +610,32 @@ footer{
 <!-- ACCESO GENERAL -->
 
 <div id="pantallaAcceso">
-
     <div class="login-card">
-
         <div class="login-logo">S</div>
-
         <h1>STELLANTIS</h1>
-
-        <p>
-            Control de Horas Extras<br>
-            Ingresá la contraseña para acceder al sistema.
-        </p>
+        <p>Control de Horas Extras<br>Ingresá la contraseña para acceder al sistema.</p>
 
         <form id="formAcceso">
-
             <label for="claveAcceso">Contraseña de acceso</label>
-
-            <input
-                type="password"
-                id="claveAcceso"
+            <input type="password" id="claveAcceso"
                 placeholder="Ingresar contraseña"
-                autocomplete="current-password"
-                required
-            >
+                autocomplete="current-password" required>
 
-            <button type="submit" class="login-btn">
-                INGRESAR AL SISTEMA
-            </button>
+            <button type="submit" class="login-btn">INGRESAR AL SISTEMA</button>
 
             <div id="errorAcceso" class="login-error">
                 Contraseña incorrecta. Intentá nuevamente.
             </div>
-
         </form>
 
-        <div class="login-footer">
-            Stellantis | Sistema interno
-        </div>
-
+        <div class="login-footer">Stellantis | Sistema interno</div>
     </div>
-
 </div>
 
 <!-- ACCESO A HISTORIAL Y DASHBOARD -->
 
 <div id="accesoSeccion">
-
     <div class="login-card">
-
         <div class="login-logo">S</div>
 
         <h1 id="tituloAccesoSeccion">ACCESO RESTRINGIDO</h1>
@@ -583,40 +645,24 @@ footer{
         </p>
 
         <form id="formAccesoSeccion">
-
             <label for="claveSeccion">Contraseña de acceso</label>
 
-            <input
-                type="password"
-                id="claveSeccion"
+            <input type="password" id="claveSeccion"
                 placeholder="Ingresar contraseña"
-                autocomplete="off"
-                required
-            >
+                autocomplete="off" required>
 
-            <button type="submit" class="login-btn">
-                INGRESAR
-            </button>
+            <button type="submit" class="login-btn">INGRESAR</button>
 
             <div id="errorSeccion" class="login-error">
                 Contraseña incorrecta. Intentá nuevamente.
             </div>
 
-            <button
-                type="button"
-                class="login-back"
-                onclick="cerrarAccesoSeccion()">
-                VOLVER
-            </button>
-
+            <button type="button" class="login-back"
+                onclick="cerrarAccesoSeccion()">VOLVER</button>
         </form>
 
-        <div class="login-footer">
-            Stellantis | Acceso restringido
-        </div>
-
+        <div class="login-footer">Stellantis | Acceso restringido</div>
     </div>
-
 </div>
 
 <!-- CONTENIDO DEL SISTEMA -->
@@ -633,7 +679,6 @@ footer{
 <main class="container">
 
     <div class="tabs">
-
         <button class="tab active" onclick="cambiarPestana('carga',this)">
             Cargar horas extras
         </button>
@@ -645,8 +690,9 @@ footer{
         <button class="tab" onclick="cambiarPestana('dashboard',this)">
             Dashboard
         </button>
-
     </div>
+
+    <!-- CARGA -->
 
     <section id="panel-carga" class="panel active">
 
@@ -691,6 +737,16 @@ footer{
                     </div>
 
                     <div class="field">
+                        <label for="tipoHora">Tipo de hora</label>
+                        <select id="tipoHora" required>
+                            <option value="">Seleccionar tipo...</option>
+                            <option value="normal">Normal</option>
+                            <option value="extra">Extra</option>
+                            <option value="a compensar">A compensar</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
                         <label for="fecha">Fecha</label>
                         <input type="date" id="fecha" required>
                     </div>
@@ -729,7 +785,6 @@ footer{
                 </div>
 
                 <div class="form-actions">
-
                     <button type="submit" class="btn btn-primary" id="btnGuardar">
                         Guardar registro
                     </button>
@@ -738,15 +793,15 @@ footer{
                         onclick="limpiarOperario()">
                         Limpiar formulario
                     </button>
-
                 </div>
 
                 <div id="mensajeCarga" class="message"></div>
 
             </form>
         </div>
-
     </section>
+
+    <!-- HISTORIAL -->
 
     <section id="panel-historial" class="panel">
 
@@ -758,7 +813,7 @@ footer{
             </div>
 
             <div class="kpi">
-                <span>Total de horas extras</span>
+                <span>Total de horas</span>
                 <strong id="kpiHoras">0.00</strong>
             </div>
 
@@ -799,6 +854,16 @@ footer{
                 </div>
 
                 <div class="field">
+                    <label for="filtroTipoHora">Tipo de hora</label>
+                    <select id="filtroTipoHora">
+                        <option value="">Todos los tipos</option>
+                        <option value="normal">Normal</option>
+                        <option value="extra">Extra</option>
+                        <option value="a compensar">A compensar</option>
+                    </select>
+                </div>
+
+                <div class="field">
                     <label for="filtroResponsable">Responsable</label>
                     <input type="text" id="filtroResponsable"
                         placeholder="Buscar responsable">
@@ -807,7 +872,6 @@ footer{
             </div>
 
             <div class="form-actions" style="margin-top:0;margin-bottom:20px">
-
                 <button class="btn btn-primary" onclick="aplicarFiltros()">
                     Aplicar filtros
                 </button>
@@ -815,11 +879,9 @@ footer{
                 <button class="btn btn-secondary" onclick="limpiarFiltros()">
                     Limpiar filtros
                 </button>
-
             </div>
 
             <div class="table-actions">
-
                 <span class="small-info" id="cantidadResultados">
                     Cargando registros...
                 </span>
@@ -827,11 +889,9 @@ footer{
                 <button class="btn btn-success" onclick="exportarExcel()">
                     Exportar a Excel
                 </button>
-
             </div>
 
             <div class="table-wrap">
-
                 <table>
                     <thead>
                         <tr>
@@ -841,6 +901,7 @@ footer{
                             <th>Sector</th>
                             <th>Puesto</th>
                             <th>Turno</th>
+                            <th>Tipo de hora</th>
                             <th>Horas</th>
                             <th>Motivo</th>
                             <th>Responsable</th>
@@ -849,16 +910,16 @@ footer{
 
                     <tbody id="tablaHistorial">
                         <tr>
-                            <td colspan="9" class="empty">Cargando historial...</td>
+                            <td colspan="10" class="empty">Cargando historial...</td>
                         </tr>
                     </tbody>
                 </table>
-
             </div>
 
         </div>
-
     </section>
+
+    <!-- DASHBOARD -->
 
     <section id="panel-dashboard" class="panel">
 
@@ -868,7 +929,8 @@ footer{
 
             <p class="dashboard-intro">
                 Análisis general de horas extraordinarias de todos los sectores.
-                Utilizá los filtros para consultar períodos, sectores, puestos y turnos específicos.
+                Utilizá los filtros para consultar períodos, sectores, puestos,
+                turnos y tipos de hora específicos.
             </p>
 
             <div class="dashboard-filters">
@@ -904,10 +966,19 @@ footer{
                     </select>
                 </div>
 
+                <div class="field">
+                    <label for="dashTipoHora">Tipo de hora</label>
+                    <select id="dashTipoHora">
+                        <option value="">Todos los tipos</option>
+                        <option value="normal">Normal</option>
+                        <option value="extra">Extra</option>
+                        <option value="a compensar">A compensar</option>
+                    </select>
+                </div>
+
             </div>
 
             <div class="dashboard-actions">
-
                 <button class="btn btn-primary" onclick="actualizarDashboard()">
                     Aplicar filtros
                 </button>
@@ -919,7 +990,6 @@ footer{
                 <button class="btn btn-secondary" onclick="cargarHistorial()">
                     Actualizar datos
                 </button>
-
             </div>
 
         </div>
@@ -927,7 +997,7 @@ footer{
         <div class="kpis">
 
             <div class="kpi">
-                <span>Total de horas extras</span>
+                <span>Total de horas</span>
                 <strong id="dashKpiHoras">0.00</strong>
             </div>
 
@@ -955,16 +1025,16 @@ footer{
         <div class="chart-grid">
 
             <div class="chart-card">
-                <h3>Horas extras por sector</h3>
-                <p>Comparación de horas acumuladas por sector.</p>
+                <h3>Horas por sector</h3>
+                <p>Hacé clic en una barra para ver sus registros.</p>
                 <div class="chart-container">
                     <canvas id="graficoSector"></canvas>
                 </div>
             </div>
 
             <div class="chart-card">
-                <h3>Horas extras por puesto</h3>
-                <p>Distribución de horas según el puesto de trabajo.</p>
+                <h3>Horas por puesto</h3>
+                <p>Hacé clic en una barra para ver sus registros.</p>
                 <div class="chart-container">
                     <canvas id="graficoPuesto"></canvas>
                 </div>
@@ -972,7 +1042,7 @@ footer{
 
             <div class="chart-card full">
                 <h3>Evolución mensual</h3>
-                <p>Seguimiento de las horas extras registradas por mes.</p>
+                <p>Hacé clic en un punto para consultar los registros del mes.</p>
                 <div class="chart-container">
                     <canvas id="graficoMensual"></canvas>
                 </div>
@@ -980,7 +1050,7 @@ footer{
 
             <div class="chart-card">
                 <h3>Ranking de operarios</h3>
-                <p>Los 10 operarios con mayor cantidad de horas extras.</p>
+                <p>Hacé clic en una barra para ver el detalle del operario.</p>
                 <div class="chart-container">
                     <canvas id="graficoOperarios"></canvas>
                 </div>
@@ -988,18 +1058,89 @@ footer{
 
             <div class="chart-card">
                 <h3>Horas por responsable</h3>
-                <p>Distribución de horas según responsable de carga.</p>
+                <p>Hacé clic en una porción para consultar sus registros.</p>
                 <div class="chart-container">
                     <canvas id="graficoResponsable"></canvas>
                 </div>
             </div>
 
             <div class="chart-card">
-                <h3>Horas extras por turno</h3>
-                <p>Comparación de horas acumuladas por turno.</p>
+                <h3>Horas por turno</h3>
+                <p>Hacé clic en una porción para consultar sus registros.</p>
                 <div class="chart-container">
                     <canvas id="graficoTurno"></canvas>
                 </div>
+            </div>
+
+        </div>
+
+        <!-- PANEL DE DETALLE -->
+
+        <div id="detalleGrafico" class="detalle-grafico">
+
+            <div class="detalle-cabecera">
+
+                <h2 id="detalleTitulo">Detalle del gráfico</h2>
+
+                <button class="btn-cerrar-detalle"
+                    onclick="ocultarDetalleGrafico()">
+                    Cerrar detalle
+                </button>
+
+            </div>
+
+            <p class="detalle-ayuda" id="detalleDescripcion">
+                Información detallada de los registros seleccionados.
+            </p>
+
+            <div class="detalle-resumen">
+
+                <div class="detalle-indicador">
+                    <span>Total de horas</span>
+                    <strong id="detalleHoras">0.00</strong>
+                </div>
+
+                <div class="detalle-indicador">
+                    <span>Cantidad de registros</span>
+                    <strong id="detalleRegistros">0</strong>
+                </div>
+
+                <div class="detalle-indicador">
+                    <span>Operarios diferentes</span>
+                    <strong id="detalleOperarios">0</strong>
+                </div>
+
+            </div>
+
+            <div class="table-wrap">
+
+                <table class="detalle-tabla">
+
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Legajo</th>
+                            <th>Operario</th>
+                            <th>Sector</th>
+                            <th>Puesto</th>
+                            <th>Turno</th>
+                            <th>Tipo de hora</th>
+                            <th>Horas</th>
+                            <th>Motivo</th>
+                            <th>Responsable</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tablaDetalleGrafico">
+                        <tr>
+                            <td colspan="10" class="empty">
+                                Seleccioná un elemento de un gráfico.
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
             </div>
 
         </div>
@@ -1008,9 +1149,7 @@ footer{
 
 </main>
 
-<footer>
-    Stellantis | Control de Horas Extras
-</footer>
+<footer>Stellantis | Control de Horas Extras</footer>
 
 </div>
 
@@ -1054,10 +1193,8 @@ document.getElementById("formAcceso").addEventListener("submit",function(e){
         document.getElementById("claveAcceso").value = "";
 
         if(!sistemaIniciado){
-
             sistemaIniciado = true;
             iniciarSistema();
-
         }
 
     }else{
@@ -1072,7 +1209,7 @@ document.getElementById("formAcceso").addEventListener("submit",function(e){
 });
 
 /* =====================================================
-   ABRIR ACCESO A UNA SECCIÓN
+   ACCESO A SECCIONES
 ===================================================== */
 
 function abrirAccesoSeccion(nombre){
@@ -1086,35 +1223,24 @@ function abrirAccesoSeccion(nombre){
     const error = document.getElementById("errorSeccion");
 
     if(nombre === "historial"){
-
         titulo.textContent = "ACCESO AL HISTORIAL";
-
         descripcion.innerHTML =
             "Historial de Horas Extras<br>Ingresá la contraseña para consultar los registros.";
+    }
 
-    }else if(nombre === "dashboard"){
-
+    if(nombre === "dashboard"){
         titulo.textContent = "ACCESO AL DASHBOARD";
-
         descripcion.innerHTML =
             "Dashboard de Horas Extras<br>Ingresá la contraseña para visualizar las estadísticas.";
-
     }
 
     input.value = "";
     error.style.display = "none";
-
     modal.style.display = "flex";
 
-    setTimeout(()=>{
-        input.focus();
-    },100);
+    setTimeout(()=>input.focus(),100);
 
 }
-
-/* =====================================================
-   VALIDAR ACCESO A HISTORIAL O DASHBOARD
-===================================================== */
 
 document.getElementById("formAccesoSeccion").addEventListener("submit",function(e){
 
@@ -1135,27 +1261,24 @@ document.getElementById("formAccesoSeccion").addEventListener("submit",function(
 
     if(clave === claveCorrecta){
 
-        const seccionAutorizada = seccionPendiente;
+        const autorizada = seccionPendiente;
 
-        seccionesAutorizadas[seccionAutorizada] = true;
+        seccionesAutorizadas[autorizada] = true;
 
         document.getElementById("accesoSeccion").style.display = "none";
-
         document.getElementById("claveSeccion").value = "";
         error.style.display = "none";
 
         seccionPendiente = null;
 
-        const indiceBoton = seccionAutorizada === "historial" ? 1 : 2;
+        const indice = autorizada === "historial" ? 1 : 2;
+        const boton = document.querySelectorAll(".tab")[indice];
 
-        const boton = document.querySelectorAll(".tab")[indiceBoton];
-
-        cambiarPestana(seccionAutorizada,boton);
+        cambiarPestana(autorizada,boton);
 
     }else{
 
         error.style.display = "block";
-
         document.getElementById("claveSeccion").value = "";
         document.getElementById("claveSeccion").focus();
 
@@ -1163,14 +1286,9 @@ document.getElementById("formAccesoSeccion").addEventListener("submit",function(
 
 });
 
-/* =====================================================
-   CERRAR ACCESO A SECCIÓN
-===================================================== */
-
 function cerrarAccesoSeccion(){
 
     document.getElementById("accesoSeccion").style.display = "none";
-
     document.getElementById("claveSeccion").value = "";
     document.getElementById("errorSeccion").style.display = "none";
 
@@ -1189,9 +1307,9 @@ const SUPABASE_KEY = "sb_publishable_kme-T9tkl1DdfBIVoNl-OA_0LTR23Cs";
 const API = SUPABASE_URL + "/rest/v1/";
 
 const HEADERS = {
-    "apikey": SUPABASE_KEY,
-    "Authorization": "Bearer " + SUPABASE_KEY,
-    "Content-Type": "application/json"
+    "apikey":SUPABASE_KEY,
+    "Authorization":"Bearer " + SUPABASE_KEY,
+    "Content-Type":"application/json"
 };
 
 /* =====================================================
@@ -1219,8 +1337,7 @@ function fechaLocal(){
     const offset = ahora.getTimezoneOffset();
 
     return new Date(ahora.getTime() - offset * 60000)
-        .toISOString()
-        .slice(0,10);
+        .toISOString().slice(0,10);
 
 }
 
@@ -1228,11 +1345,11 @@ function fechaLocal(){
    FUNCIONES GENERALES
 ===================================================== */
 
-async function consultarSupabase(url, opciones = {}){
+async function consultarSupabase(url,opciones={}){
 
-    const respuesta = await fetch(url, {
+    const respuesta = await fetch(url,{
         ...opciones,
-        headers: {
+        headers:{
             ...HEADERS,
             ...(opciones.headers || {})
         }
@@ -1249,19 +1366,17 @@ async function consultarSupabase(url, opciones = {}){
     }
 
     if(!respuesta.ok){
-
         throw new Error(
             "Supabase HTTP " + respuesta.status + ": " +
             (datos?.message || texto || "Error desconocido")
         );
-
     }
 
     return datos;
 
 }
 
-function mostrarMensaje(elemento, texto, tipo){
+function mostrarMensaje(elemento,texto,tipo){
 
     elemento.textContent = texto;
     elemento.className = "message " + tipo;
@@ -1277,7 +1392,7 @@ function ocultarMensaje(elemento){
 
 function escaparHTML(valor){
 
-    return String(valor ?? "").replace(/[&<>"']/g, caracter => ({
+    return String(valor ?? "").replace(/[&<>"']/g,caracter=>({
         "&":"&amp;",
         "<":"&lt;",
         ">":"&gt;",
@@ -1293,22 +1408,40 @@ function formatoHoras(valor){
 
 }
 
+function nombreTipoHora(tipo){
+
+    const tipos = {
+        normal:"Normal",
+        extra:"Extra",
+        "a compensar":"A compensar"
+    };
+
+    return tipos[tipo] || "Extra";
+
+}
+
+function claseTipoHora(tipo){
+
+    if(tipo === "normal") return "tipo-normal";
+    if(tipo === "extra") return "tipo-extra";
+    if(tipo === "a compensar") return "tipo-compensar";
+
+    return "";
+
+}
+
 /* =====================================================
    PESTAÑAS
 ===================================================== */
 
-function cambiarPestana(nombre, boton){
-
-    // Solicitar contraseña para Historial y Dashboard.
+function cambiarPestana(nombre,boton){
 
     if(
         (nombre === "historial" || nombre === "dashboard") &&
         !seccionesAutorizadas[nombre]
     ){
-
         abrirAccesoSeccion(nombre);
         return;
-
     }
 
     document.querySelectorAll(".tab").forEach(tab=>{
@@ -1321,11 +1454,10 @@ function cambiarPestana(nombre, boton){
 
     boton.classList.add("active");
 
-    document.getElementById("panel-" + nombre)
-        .classList.add("active");
+    document.getElementById("panel-" + nombre).classList.add("active");
 
     if(nombre === "historial"){
-        cargarHistorial();
+        aplicarFiltros();
     }
 
     if(nombre === "dashboard"){
@@ -1347,7 +1479,6 @@ async function cargarOperarios(){
         );
 
         const lista = document.getElementById("listaOperarios");
-
         lista.innerHTML = "";
 
         operarios
@@ -1389,8 +1520,8 @@ document.getElementById("operario").addEventListener("input",function(){
         const opcion = (op.legajo + " - " + op.nombre).toLowerCase();
 
         return opcion === valor ||
-               String(op.legajo).toLowerCase() === valor ||
-               String(op.nombre).toLowerCase() === valor;
+            String(op.legajo).toLowerCase() === valor ||
+            String(op.nombre).toLowerCase() === valor;
 
     });
 
@@ -1413,7 +1544,6 @@ function limpiarOperario(){
     setTimeout(()=>{
 
         completarOperario(null);
-
         ocultarMensaje(document.getElementById("mensajeCarga"));
 
     },0);
@@ -1421,7 +1551,7 @@ function limpiarOperario(){
 }
 
 /* =====================================================
-   CARGAR SECTORES DEL HISTORIAL
+   CARGAR SECTORES
 ===================================================== */
 
 function cargarSectores(){
@@ -1429,9 +1559,7 @@ function cargarSectores(){
     const selector = document.getElementById("filtroSector");
 
     const sectores = [...new Set(
-        operarios
-            .map(op=>String(op.sector || "").trim())
-            .filter(Boolean)
+        operarios.map(op=>String(op.sector || "").trim()).filter(Boolean)
     )].sort((a,b)=>a.localeCompare(b,"es"));
 
     selector.innerHTML = '<option value="">Todos los sectores</option>';
@@ -1475,7 +1603,6 @@ function cargarOpcionesDashboard(){
 function llenarSelector(id,textoInicial,valores){
 
     const selector = document.getElementById(id);
-
     selector.innerHTML = "";
 
     const primera = document.createElement("option");
@@ -1516,16 +1643,15 @@ document.getElementById("formHoras").addEventListener("submit",async function(e)
     );
 
     if(!operario){
-
         mostrarMensaje(mensaje,"Seleccioná un operario activo válido del padrón.","error");
         return;
-
     }
 
     const fecha = document.getElementById("fecha").value;
     const cantidad = Number(document.getElementById("cantidad").value);
     const motivo = document.getElementById("motivo").value.trim();
     const responsable = document.getElementById("responsable").value.trim();
+    const tipoHora = document.getElementById("tipoHora").value;
 
     const esIncrementoValido =
         Number.isFinite(cantidad) &&
@@ -1544,7 +1670,7 @@ document.getElementById("formHoras").addEventListener("submit",async function(e)
 
     }
 
-    if(!fecha || !motivo || !responsable){
+    if(!fecha || !motivo || !responsable || !tipoHora){
 
         mostrarMensaje(mensaje,"Completá todos los campos obligatorios.","error");
         return;
@@ -1552,11 +1678,12 @@ document.getElementById("formHoras").addEventListener("submit",async function(e)
     }
 
     const registro = {
-        operario_id: operario.id,
-        fecha: fecha,
-        cantidad_horas: cantidad,
-        motivo: motivo,
-        responsable: responsable
+        operario_id:operario.id,
+        fecha:fecha,
+        cantidad_horas:cantidad,
+        motivo:motivo,
+        responsable:responsable,
+        tipo_hora:tipoHora
     };
 
     boton.disabled = true;
@@ -1614,7 +1741,7 @@ async function cargarHistorial(){
 
     tabla.innerHTML = `
         <tr>
-            <td colspan="9" class="empty">Cargando registros...</td>
+            <td colspan="10" class="empty">Cargando registros...</td>
         </tr>
     `;
 
@@ -1632,6 +1759,7 @@ async function cargarHistorial(){
 
             return {
                 ...reg,
+                tipo_hora:reg.tipo_hora || "extra",
                 legajo:op?.legajo || "",
                 nombre:op?.nombre || "Operario no encontrado",
                 sector:op?.sector || "",
@@ -1650,7 +1778,7 @@ async function cargarHistorial(){
 
         tabla.innerHTML = `
             <tr>
-                <td colspan="9" class="empty">
+                <td colspan="10" class="empty">
                     Error al cargar el historial: ${escaparHTML(error.message)}
                 </td>
             </tr>
@@ -1676,6 +1804,7 @@ function obtenerFiltrados(){
         .value.trim().toLowerCase();
 
     const sector = document.getElementById("filtroSector").value;
+    const tipoHora = document.getElementById("filtroTipoHora").value;
 
     const responsable = document.getElementById("filtroResponsable")
         .value.trim().toLowerCase();
@@ -1699,8 +1828,12 @@ function obtenerFiltrados(){
             return false;
         }
 
+        if(tipoHora && reg.tipo_hora !== tipoHora){
+            return false;
+        }
+
         if(responsable &&
-           !String(reg.responsable || "").toLowerCase().includes(responsable)){
+            !String(reg.responsable || "").toLowerCase().includes(responsable)){
             return false;
         }
 
@@ -1723,6 +1856,7 @@ function limpiarFiltros(){
     document.getElementById("filtroHasta").value = "";
     document.getElementById("filtroOperario").value = "";
     document.getElementById("filtroSector").value = "";
+    document.getElementById("filtroTipoHora").value = "";
     document.getElementById("filtroResponsable").value = "";
 
     aplicarFiltros();
@@ -1757,7 +1891,7 @@ function renderizarHistorial(){
 
         tabla.innerHTML = `
             <tr>
-                <td colspan="9" class="empty">No se encontraron registros.</td>
+                <td colspan="10" class="empty">No se encontraron registros.</td>
             </tr>
         `;
 
@@ -1774,6 +1908,9 @@ function renderizarHistorial(){
             <td>${escaparHTML(reg.sector)}</td>
             <td>${escaparHTML(reg.puesto)}</td>
             <td>${escaparHTML(reg.turno)}</td>
+            <td class="${claseTipoHora(reg.tipo_hora)}">
+                ${escaparHTML(nombreTipoHora(reg.tipo_hora))}
+            </td>
             <td><strong>${formatoHoras(reg.cantidad_horas)}</strong></td>
             <td>${escaparHTML(reg.motivo)}</td>
             <td>${escaparHTML(reg.responsable)}</td>
@@ -1794,6 +1931,7 @@ function obtenerRegistrosDashboard(){
     const sector = document.getElementById("dashSector").value;
     const puesto = document.getElementById("dashPuesto").value;
     const turno = document.getElementById("dashTurno").value;
+    const tipoHora = document.getElementById("dashTipoHora").value;
 
     return registros.filter(reg=>{
 
@@ -1802,6 +1940,7 @@ function obtenerRegistrosDashboard(){
         if(sector && reg.sector !== sector) return false;
         if(puesto && reg.puesto !== puesto) return false;
         if(turno && reg.turno !== turno) return false;
+        if(tipoHora && reg.tipo_hora !== tipoHora) return false;
 
         return true;
 
@@ -1816,6 +1955,7 @@ function limpiarFiltrosDashboard(){
     document.getElementById("dashSector").value = "";
     document.getElementById("dashPuesto").value = "";
     document.getElementById("dashTurno").value = "";
+    document.getElementById("dashTipoHora").value = "";
 
     actualizarDashboard();
 
@@ -1825,7 +1965,7 @@ function limpiarFiltrosDashboard(){
    AGRUPAR DATOS PARA LOS GRÁFICOS
 ===================================================== */
 
-function agruparHoras(datos, obtenerClave){
+function agruparHoras(datos,obtenerClave){
 
     const acumulado = {};
 
@@ -1845,10 +1985,177 @@ function agruparHoras(datos, obtenerClave){
 }
 
 /* =====================================================
-   CREAR / ACTUALIZAR GRÁFICOS
+   DETALLE INTERACTIVO DE LOS GRÁFICOS
 ===================================================== */
 
-function crearGrafico(id,tipo,etiquetas,valores,titulo,opcionesExtra={}){
+function ocultarDetalleGrafico(){
+
+    document.getElementById("detalleGrafico")
+        .classList.remove("visible");
+
+}
+
+function mostrarDetalleGrafico(idGrafico,etiqueta,clave){
+
+    const datos = obtenerRegistrosDashboard();
+
+    let detalle = [];
+    let titulo = "";
+
+    switch(idGrafico){
+
+        case "graficoSector":
+
+            titulo = "Detalle del sector: " + etiqueta;
+
+            detalle = datos.filter(reg=>
+                (reg.sector || "Sin especificar") === clave
+            );
+
+            break;
+
+        case "graficoPuesto":
+
+            titulo = "Detalle del puesto: " + etiqueta;
+
+            detalle = datos.filter(reg=>
+                (reg.puesto || "Sin especificar") === clave
+            );
+
+            break;
+
+        case "graficoMensual":
+
+            titulo = "Detalle del mes: " + etiqueta;
+
+            detalle = datos.filter(reg=>
+                String(reg.fecha || "").slice(0,7) === clave
+            );
+
+            break;
+
+        case "graficoOperarios":
+
+            titulo = "Detalle del operario: " + etiqueta;
+
+            detalle = datos.filter(reg=>
+                String(reg.operario_id) === String(clave)
+            );
+
+            break;
+
+        case "graficoResponsable":
+
+            titulo = "Detalle del responsable: " + etiqueta;
+
+            detalle = datos.filter(reg=>
+                (reg.responsable || "Sin especificar") === clave
+            );
+
+            break;
+
+        case "graficoTurno":
+
+            titulo = "Detalle del turno: " + etiqueta;
+
+            detalle = datos.filter(reg=>
+                (reg.turno || "Sin especificar") === clave
+            );
+
+            break;
+
+    }
+
+    detalle.sort((a,b)=>
+        String(b.fecha || "").localeCompare(String(a.fecha || ""))
+    );
+
+    const totalHoras = detalle.reduce(
+        (total,reg)=>total + Number(reg.cantidad_horas || 0),
+        0
+    );
+
+    const operariosDiferentes = new Set(
+        detalle.map(reg=>reg.operario_id)
+    ).size;
+
+    document.getElementById("detalleTitulo").textContent = titulo;
+
+    document.getElementById("detalleDescripcion").textContent =
+        "Se muestran los registros que componen este resultado, respetando los filtros activos del dashboard.";
+
+    document.getElementById("detalleHoras").textContent =
+        formatoHoras(totalHoras);
+
+    document.getElementById("detalleRegistros").textContent =
+        detalle.length;
+
+    document.getElementById("detalleOperarios").textContent =
+        operariosDiferentes;
+
+    const tabla = document.getElementById("tablaDetalleGrafico");
+
+    if(detalle.length === 0){
+
+        tabla.innerHTML = `
+            <tr>
+                <td colspan="10" class="empty">
+                    No se encontraron registros.
+                </td>
+            </tr>
+        `;
+
+    }else{
+
+        tabla.innerHTML = detalle.map(reg=>`
+
+            <tr>
+                <td>${escaparHTML(reg.fecha)}</td>
+                <td>${escaparHTML(reg.legajo)}</td>
+                <td>${escaparHTML(reg.nombre)}</td>
+                <td>${escaparHTML(reg.sector)}</td>
+                <td>${escaparHTML(reg.puesto)}</td>
+                <td>${escaparHTML(reg.turno)}</td>
+                <td class="${claseTipoHora(reg.tipo_hora)}">
+                    ${escaparHTML(nombreTipoHora(reg.tipo_hora))}
+                </td>
+                <td><strong>${formatoHoras(reg.cantidad_horas)}</strong></td>
+                <td>${escaparHTML(reg.motivo)}</td>
+                <td>${escaparHTML(reg.responsable)}</td>
+            </tr>
+
+        `).join("");
+
+    }
+
+    const panel = document.getElementById("detalleGrafico");
+
+    panel.classList.add("visible");
+
+    setTimeout(()=>{
+
+        panel.scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+        });
+
+    },100);
+
+}
+
+/* =====================================================
+   CREAR / ACTUALIZAR GRÁFICOS INTERACTIVOS
+===================================================== */
+
+function crearGrafico(
+    id,
+    tipo,
+    etiquetas,
+    valores,
+    titulo,
+    opcionesExtra={},
+    clavesDetalle=[]
+){
 
     if(typeof Chart === "undefined"){
         console.error("No se pudo cargar Chart.js");
@@ -1866,7 +2173,7 @@ function crearGrafico(id,tipo,etiquetas,valores,titulo,opcionesExtra={}){
     const esCircular = tipo === "doughnut" || tipo === "pie";
 
     const datosGrafico = {
-        labels: etiquetas.length ? etiquetas : ["Sin datos"],
+        labels:etiquetas.length ? etiquetas : ["Sin datos"],
         datasets:[{
             label:titulo,
             data:valores.length ? valores : [0],
@@ -1882,13 +2189,43 @@ function crearGrafico(id,tipo,etiquetas,valores,titulo,opcionesExtra={}){
     };
 
     const opciones = {
+
         responsive:true,
         maintainAspectRatio:false,
+
+        // DETECTAR CLICS EN BARRAS, PUNTOS Y PORCIONES
+
+        onClick:function(evento,elementos){
+
+            if(!elementos.length) return;
+
+            const indice = elementos[0].index;
+            const clave = clavesDetalle[indice];
+
+            if(clave === undefined) return;
+
+            mostrarDetalleGrafico(
+                id,
+                etiquetas[indice],
+                clave
+            );
+
+        },
+
+        onHover:function(evento,elementos){
+
+            evento.native.target.style.cursor =
+                elementos.length ? "pointer" : "default";
+
+        },
+
         plugins:{
+
             legend:{
                 display:esCircular,
                 position:"bottom"
             },
+
             tooltip:{
                 callbacks:{
                     label:function(context){
@@ -1896,8 +2233,11 @@ function crearGrafico(id,tipo,etiquetas,valores,titulo,opcionesExtra={}){
                     }
                 }
             }
+
         },
+
         scales:esCircular ? {} : {
+
             x:{
                 ticks:{
                     color:"#667085",
@@ -1906,16 +2246,20 @@ function crearGrafico(id,tipo,etiquetas,valores,titulo,opcionesExtra={}){
                 },
                 grid:{display:false}
             },
+
             y:{
                 beginAtZero:true,
                 ticks:{color:"#667085"},
                 title:{
                     display:true,
-                    text:"Horas extras"
+                    text:"Horas"
                 }
             }
+
         },
+
         ...opcionesExtra
+
     };
 
     graficos[id] = new Chart(canvas,{
@@ -1932,6 +2276,8 @@ function crearGrafico(id,tipo,etiquetas,valores,titulo,opcionesExtra={}){
 
 function actualizarDashboard(){
 
+    ocultarDetalleGrafico();
+
     const datos = obtenerRegistrosDashboard();
 
     const totalHoras = datos.reduce(
@@ -1945,19 +2291,39 @@ function actualizarDashboard(){
 
     const promedio = datos.length ? totalHoras / datos.length : 0;
 
-    document.getElementById("dashKpiHoras").textContent = formatoHoras(totalHoras);
-    document.getElementById("dashKpiRegistros").textContent = datos.length;
-    document.getElementById("dashKpiOperarios").textContent = operariosDiferentes;
-    document.getElementById("dashKpiPromedio").textContent = formatoHoras(promedio);
+    document.getElementById("dashKpiHoras").textContent =
+        formatoHoras(totalHoras);
+
+    document.getElementById("dashKpiRegistros").textContent =
+        datos.length;
+
+    document.getElementById("dashKpiOperarios").textContent =
+        operariosDiferentes;
+
+    document.getElementById("dashKpiPromedio").textContent =
+        formatoHoras(promedio);
+
+    const tipoSeleccionado =
+        document.getElementById("dashTipoHora").value;
 
     document.getElementById("dashboardEstado").textContent =
-        datos.length + " registros incluidos en las estadísticas.";
+        datos.length + " registros incluidos en las estadísticas." +
+        (tipoSeleccionado
+            ? " Tipo de hora: " + nombreTipoHora(tipoSeleccionado) + "."
+            : " Tipos de hora: todos.");
+
+    /* ==========================================
+       HORAS POR SECTOR
+    ========================================== */
 
     const porSector = agruparHoras(datos,reg=>reg.sector);
 
+    const clavesSector = porSector.map(item=>item[0]);
+
     crearGrafico(
-        "graficoSector","bar",
-        porSector.map(item=>item[0]),
+        "graficoSector",
+        "bar",
+        clavesSector,
         porSector.map(item=>Number(item[1].toFixed(2))),
         "Horas por sector",
         {
@@ -1965,18 +2331,26 @@ function actualizarDashboard(){
             scales:{
                 x:{
                     beginAtZero:true,
-                    title:{display:true,text:"Horas extras"}
+                    title:{display:true,text:"Horas"}
                 },
                 y:{ticks:{color:"#667085"}}
             }
-        }
+        },
+        clavesSector
     );
+
+    /* ==========================================
+       HORAS POR PUESTO
+    ========================================== */
 
     const porPuesto = agruparHoras(datos,reg=>reg.puesto);
 
+    const clavesPuesto = porPuesto.map(item=>item[0]);
+
     crearGrafico(
-        "graficoPuesto","bar",
-        porPuesto.map(item=>item[0]),
+        "graficoPuesto",
+        "bar",
+        clavesPuesto,
         porPuesto.map(item=>Number(item[1].toFixed(2))),
         "Horas por puesto",
         {
@@ -1984,12 +2358,17 @@ function actualizarDashboard(){
             scales:{
                 x:{
                     beginAtZero:true,
-                    title:{display:true,text:"Horas extras"}
+                    title:{display:true,text:"Horas"}
                 },
                 y:{ticks:{color:"#667085"}}
             }
-        }
+        },
+        clavesPuesto
     );
+
+    /* ==========================================
+       EVOLUCIÓN MENSUAL
+    ========================================== */
 
     const porMes = {};
 
@@ -2025,7 +2404,8 @@ function actualizarDashboard(){
     });
 
     crearGrafico(
-        "graficoMensual","line",
+        "graficoMensual",
+        "line",
         etiquetasMeses,
         mesesOrdenados.map(mes=>Number(porMes[mes].toFixed(2))),
         "Evolución mensual",
@@ -2034,22 +2414,47 @@ function actualizarDashboard(){
             scales:{
                 y:{
                     beginAtZero:true,
-                    title:{display:true,text:"Horas extras"}
+                    title:{display:true,text:"Horas"}
+                }
+            },
+            elements:{
+                point:{
+                    radius:6,
+                    hoverRadius:9
                 }
             }
-        }
+        },
+        mesesOrdenados
     );
+
+    /* ==========================================
+       RANKING DE OPERARIOS
+    ========================================== */
 
     const porOperario = agruparHoras(
         datos,
-        reg=>reg.nombre
-            ? reg.nombre + " (" + (reg.legajo || "Sin legajo") + ")"
-            : "Operario no identificado"
+        reg=>String(reg.operario_id || "sin-id")
     ).slice(0,10);
 
+    const clavesOperarios = porOperario.map(item=>item[0]);
+
+    const etiquetasOperarios = porOperario.map(item=>{
+
+        const registro = datos.find(reg=>
+            String(reg.operario_id || "sin-id") === item[0]
+        );
+
+        if(!registro) return "Operario desconocido";
+
+        return registro.nombre +
+            " (" + (registro.legajo || "Sin legajo") + ")";
+
+    });
+
     crearGrafico(
-        "graficoOperarios","bar",
-        porOperario.map(item=>item[0]),
+        "graficoOperarios",
+        "bar",
+        etiquetasOperarios,
         porOperario.map(item=>Number(item[1].toFixed(2))),
         "Ranking de operarios",
         {
@@ -2057,7 +2462,7 @@ function actualizarDashboard(){
             scales:{
                 x:{
                     beginAtZero:true,
-                    title:{display:true,text:"Horas extras"}
+                    title:{display:true,text:"Horas"}
                 },
                 y:{
                     ticks:{
@@ -2066,25 +2471,50 @@ function actualizarDashboard(){
                     }
                 }
             }
-        }
+        },
+        clavesOperarios
     );
 
-    const porResponsable = agruparHoras(datos,reg=>reg.responsable);
+    /* ==========================================
+       HORAS POR RESPONSABLE
+    ========================================== */
+
+    const porResponsable = agruparHoras(
+        datos,
+        reg=>reg.responsable
+    );
+
+    const clavesResponsables = porResponsable.map(item=>item[0]);
 
     crearGrafico(
-        "graficoResponsable","doughnut",
-        porResponsable.map(item=>item[0]),
+        "graficoResponsable",
+        "doughnut",
+        clavesResponsables,
         porResponsable.map(item=>Number(item[1].toFixed(2))),
-        "Horas por responsable"
+        "Horas por responsable",
+        {},
+        clavesResponsables
     );
 
-    const porTurno = agruparHoras(datos,reg=>reg.turno);
+    /* ==========================================
+       HORAS POR TURNO
+    ========================================== */
+
+    const porTurno = agruparHoras(
+        datos,
+        reg=>reg.turno
+    );
+
+    const clavesTurnos = porTurno.map(item=>item[0]);
 
     crearGrafico(
-        "graficoTurno","doughnut",
-        porTurno.map(item=>item[0]),
+        "graficoTurno",
+        "doughnut",
+        clavesTurnos,
         porTurno.map(item=>Number(item[1].toFixed(2))),
-        "Horas por turno"
+        "Horas por turno",
+        {},
+        clavesTurnos
     );
 
 }
@@ -2113,6 +2543,7 @@ function exportarExcel(){
         "Sector":reg.sector,
         "Puesto":reg.puesto,
         "Turno":reg.turno,
+        "Tipo de hora":nombreTipoHora(reg.tipo_hora),
         "Cantidad de horas":Number(reg.cantidad_horas),
         "Motivo":reg.motivo,
         "Responsable":reg.responsable
@@ -2123,7 +2554,7 @@ function exportarExcel(){
 
     hoja["!cols"] = [
         {wch:13},{wch:13},{wch:32},{wch:20},{wch:18},
-        {wch:13},{wch:18},{wch:40},{wch:35}
+        {wch:13},{wch:18},{wch:18},{wch:40},{wch:35}
     ];
 
     const libro = XLSX.utils.book_new();
