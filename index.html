@@ -30,6 +30,120 @@ body{
     min-height:100vh;
 }
 
+/* PANTALLA DE ACCESO */
+
+#pantallaAcceso{
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    background:linear-gradient(135deg,#071426,#12365e,#1d4d7c);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.login-card{
+    background:white;
+    width:100%;
+    max-width:420px;
+    padding:38px 32px;
+    border-radius:16px;
+    box-shadow:0 15px 45px #0004;
+    text-align:center;
+}
+
+.login-logo{
+    width:62px;
+    height:62px;
+    border-radius:14px;
+    background:#071b35;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 20px;
+    font-size:25px;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+.login-card h1{
+    color:var(--azul);
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.login-card p{
+    color:var(--gris);
+    font-size:13px;
+    line-height:1.5;
+    margin-bottom:25px;
+}
+
+.login-card label{
+    display:block;
+    text-align:left;
+    font-weight:bold;
+    font-size:13px;
+    margin-bottom:8px;
+    color:#344054;
+}
+
+.login-card input{
+    width:100%;
+    padding:14px;
+    border:1px solid var(--borde);
+    border-radius:8px;
+    font-size:15px;
+    margin-bottom:16px;
+}
+
+.login-card input:focus{
+    outline:none;
+    border-color:var(--azul3);
+    box-shadow:0 0 0 3px #1d4d7c18;
+}
+
+.login-btn{
+    width:100%;
+    border:0;
+    border-radius:8px;
+    padding:14px;
+    background:var(--azul2);
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.login-btn:hover{
+    background:var(--azul3);
+}
+
+.login-error{
+    display:none;
+    background:#fdecea;
+    color:#a12b22;
+    border-radius:7px;
+    padding:11px;
+    margin-top:15px;
+    font-size:13px;
+}
+
+.login-footer{
+    margin-top:25px;
+    color:#98a2b3;
+    font-size:11px;
+}
+
+/* SISTEMA */
+
+#contenidoSistema{
+    display:none;
+}
+
 header{
     background:linear-gradient(120deg,var(--azul),var(--azul2));
     color:white;
@@ -286,8 +400,6 @@ tbody tr:hover{background:#f7f9fc}
     font-size:12px;
 }
 
-/* DASHBOARD */
-
 .dashboard-intro{
     color:var(--gris);
     font-size:13px;
@@ -303,9 +415,7 @@ tbody tr:hover{background:#f7f9fc}
     margin-bottom:18px;
 }
 
-.dashboard-filters .field{
-    min-width:0;
-}
+.dashboard-filters .field{min-width:0}
 
 .dashboard-actions{
     display:flex;
@@ -369,13 +479,8 @@ footer{
 }
 
 @media(max-width:850px){
-    .chart-grid{
-        grid-template-columns:1fr;
-    }
-
-    .chart-card.full{
-        grid-column:auto;
-    }
+    .chart-grid{grid-template-columns:1fr}
+    .chart-card.full{grid-column:auto}
 }
 
 @media(max-width:600px){
@@ -388,11 +493,65 @@ footer{
     .chart-card{padding:16px}
     .chart-container{height:260px}
     .chart-card.full .chart-container{height:280px}
+    .login-card{padding:30px 22px}
 }
 </style>
 </head>
 
 <body>
+
+<!-- ==========================================
+     PANTALLA DE ACCESO
+=========================================== -->
+
+<div id="pantallaAcceso">
+
+    <div class="login-card">
+
+        <div class="login-logo">S</div>
+
+        <h1>STELLANTIS</h1>
+
+        <p>
+            Control de Horas Extras<br>
+            Ingresá la contraseña para acceder al sistema.
+        </p>
+
+        <form id="formAcceso">
+
+            <label for="claveAcceso">Contraseña de acceso</label>
+
+            <input
+                type="password"
+                id="claveAcceso"
+                placeholder="Ingresar contraseña"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit" class="login-btn">
+                INGRESAR AL SISTEMA
+            </button>
+
+            <div id="errorAcceso" class="login-error">
+                Contraseña incorrecta. Intentá nuevamente.
+            </div>
+
+        </form>
+
+        <div class="login-footer">
+            Stellantis | Sistema interno
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     CONTENIDO DEL SISTEMA
+=========================================== -->
+
+<div id="contenidoSistema">
 
 <header>
     <div class="header-content">
@@ -419,10 +578,6 @@ footer{
 
     </div>
 
-    <!-- ==========================================
-         CARGA DE HORAS
-    =========================================== -->
-
     <section id="panel-carga" class="panel active">
 
         <div class="card">
@@ -434,16 +589,9 @@ footer{
 
                     <div class="field">
                         <label for="operario">Buscar operario</label>
-
-                        <input
-                            type="text"
-                            id="operario"
-                            list="listaOperarios"
+                        <input type="text" id="operario" list="listaOperarios"
                             placeholder="Ingresar legajo o nombre"
-                            autocomplete="off"
-                            required
-                        >
-
+                            autocomplete="off" required>
                         <datalist id="listaOperarios"></datalist>
                     </div>
 
@@ -479,21 +627,13 @@ footer{
 
                     <div class="field">
                         <label for="cantidad">Cantidad de horas</label>
-
-                        <input
-                            type="number"
-                            id="cantidad"
-                            min="0.50"
-                            max="999"
-                            step="0.50"
-                            placeholder="Ejemplo: 1.50"
-                            required
-                        >
+                        <input type="number" id="cantidad" min="0.50"
+                            max="999" step="0.50"
+                            placeholder="Ejemplo: 1.50" required>
                     </div>
 
                     <div class="field">
                         <label for="responsable">Responsable de la carga</label>
-
                         <select id="responsable" required>
                             <option value="">Seleccionar responsable...</option>
                             <option value="GIMENEZ, GABRIEL FEDERICO">GIMENEZ, GABRIEL FEDERICO</option>
@@ -512,12 +652,8 @@ footer{
 
                     <div class="field">
                         <label for="motivo">Motivo de las horas extras</label>
-
-                        <textarea
-                            id="motivo"
-                            placeholder="Describir el motivo..."
-                            required
-                        ></textarea>
+                        <textarea id="motivo"
+                            placeholder="Describir el motivo..." required></textarea>
                     </div>
 
                 </div>
@@ -528,11 +664,8 @@ footer{
                         Guardar registro
                     </button>
 
-                    <button
-                        type="reset"
-                        class="btn btn-secondary"
-                        onclick="limpiarOperario()"
-                    >
+                    <button type="reset" class="btn btn-secondary"
+                        onclick="limpiarOperario()">
                         Limpiar formulario
                     </button>
 
@@ -544,10 +677,6 @@ footer{
         </div>
 
     </section>
-
-    <!-- ==========================================
-         HISTORIAL
-    =========================================== -->
 
     <section id="panel-historial" class="panel">
 
@@ -588,11 +717,8 @@ footer{
 
                 <div class="field">
                     <label for="filtroOperario">Operario / Legajo</label>
-                    <input
-                        type="text"
-                        id="filtroOperario"
-                        placeholder="Buscar operario o legajo"
-                    >
+                    <input type="text" id="filtroOperario"
+                        placeholder="Buscar operario o legajo">
                 </div>
 
                 <div class="field">
@@ -604,11 +730,8 @@ footer{
 
                 <div class="field">
                     <label for="filtroResponsable">Responsable</label>
-                    <input
-                        type="text"
-                        id="filtroResponsable"
-                        placeholder="Buscar responsable"
-                    >
+                    <input type="text" id="filtroResponsable"
+                        placeholder="Buscar responsable">
                 </div>
 
             </div>
@@ -640,7 +763,6 @@ footer{
             <div class="table-wrap">
 
                 <table>
-
                     <thead>
                         <tr>
                             <th>Fecha</th>
@@ -657,12 +779,9 @@ footer{
 
                     <tbody id="tablaHistorial">
                         <tr>
-                            <td colspan="9" class="empty">
-                                Cargando historial...
-                            </td>
+                            <td colspan="9" class="empty">Cargando historial...</td>
                         </tr>
                     </tbody>
-
                 </table>
 
             </div>
@@ -670,10 +789,6 @@ footer{
         </div>
 
     </section>
-
-    <!-- ==========================================
-         DASHBOARD
-    =========================================== -->
 
     <section id="panel-dashboard" class="panel">
 
@@ -739,8 +854,6 @@ footer{
 
         </div>
 
-        <!-- INDICADORES -->
-
         <div class="kpis">
 
             <div class="kpi">
@@ -768,8 +881,6 @@ footer{
         <p class="dashboard-status" id="dashboardEstado">
             Estadísticas generales.
         </p>
-
-        <!-- GRÁFICOS -->
 
         <div class="chart-grid">
 
@@ -831,7 +942,51 @@ footer{
     Stellantis | Control de Horas Extras
 </footer>
 
+</div>
+
 <script>
+
+/* =====================================================
+   ACCESO CON CONTRASEÑA
+===================================================== */
+
+const CLAVE_ACCESO = "Sparandino26";
+
+let sistemaIniciado = false;
+
+document.getElementById("formAcceso").addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    const clave = document.getElementById("claveAcceso").value;
+    const error = document.getElementById("errorAcceso");
+
+    if(clave === CLAVE_ACCESO){
+
+        error.style.display = "none";
+
+        document.getElementById("pantallaAcceso").style.display = "none";
+        document.getElementById("contenidoSistema").style.display = "block";
+
+        document.getElementById("claveAcceso").value = "";
+
+        if(!sistemaIniciado){
+
+            sistemaIniciado = true;
+            iniciarSistema();
+
+        }
+
+    }else{
+
+        error.style.display = "block";
+
+        document.getElementById("claveAcceso").value = "";
+        document.getElementById("claveAcceso").focus();
+
+    }
+
+});
 
 /* =====================================================
    CONFIGURACIÓN SUPABASE
@@ -856,26 +1011,12 @@ const HEADERS = {
 let operarios = [];
 let registros = [];
 let registrosFiltrados = [];
-
 let graficos = {};
 
-/* =====================================================
-   PALETA DE COLORES
-===================================================== */
-
 const COLORES = [
-    "#12365e",
-    "#1d4d7c",
-    "#3275a8",
-    "#16834a",
-    "#e6a23c",
-    "#a855a0",
-    "#d65b5b",
-    "#64748b",
-    "#0f766e",
-    "#7c5cce",
-    "#a16207",
-    "#475569"
+    "#12365e","#1d4d7c","#3275a8","#16834a",
+    "#e6a23c","#a855a0","#d65b5b","#64748b",
+    "#0f766e","#7c5cce","#a16207","#475569"
 ];
 
 /* =====================================================
@@ -892,8 +1033,6 @@ function fechaLocal(){
         .slice(0,10);
 
 }
-
-document.getElementById("fecha").value = fechaLocal();
 
 /* =====================================================
    FUNCIONES GENERALES
@@ -1001,9 +1140,6 @@ async function cargarOperarios(){
 
     try{
 
-        // Se cargan activos e inactivos para identificar
-        // correctamente los registros históricos.
-
         operarios = await consultarSupabase(
             API + "operarios?select=id,legajo,nombre,sector,puesto,turno,activo&order=nombre.asc"
         );
@@ -1012,15 +1148,11 @@ async function cargarOperarios(){
 
         lista.innerHTML = "";
 
-        // Solo los operarios activos pueden seleccionarse
-        // para registrar nuevas horas extras.
-
         operarios
             .filter(op=>op.activo === true)
             .forEach(op=>{
 
                 const opcion = document.createElement("option");
-
                 opcion.value = op.legajo + " - " + op.nombre;
 
                 lista.appendChild(opcion);
@@ -1105,7 +1237,6 @@ function cargarSectores(){
     sectores.forEach(sector=>{
 
         const opcion = document.createElement("option");
-
         opcion.value = sector;
         opcion.textContent = sector;
 
@@ -1154,7 +1285,6 @@ function llenarSelector(id,textoInicial,valores){
     valores.forEach(valor=>{
 
         const opcion = document.createElement("option");
-
         opcion.value = valor;
         opcion.textContent = valor;
 
@@ -1185,24 +1315,14 @@ document.getElementById("formHoras").addEventListener("submit",async function(e)
 
     if(!operario){
 
-        mostrarMensaje(
-            mensaje,
-            "Seleccioná un operario activo válido del padrón.",
-            "error"
-        );
-
+        mostrarMensaje(mensaje,"Seleccioná un operario activo válido del padrón.","error");
         return;
 
     }
 
     const fecha = document.getElementById("fecha").value;
-
-    const cantidad = Number(
-        document.getElementById("cantidad").value
-    );
-
+    const cantidad = Number(document.getElementById("cantidad").value);
     const motivo = document.getElementById("motivo").value.trim();
-
     const responsable = document.getElementById("responsable").value.trim();
 
     const esIncrementoValido =
@@ -1224,12 +1344,7 @@ document.getElementById("formHoras").addEventListener("submit",async function(e)
 
     if(!fecha || !motivo || !responsable){
 
-        mostrarMensaje(
-            mensaje,
-            "Completá todos los campos obligatorios.",
-            "error"
-        );
-
+        mostrarMensaje(mensaje,"Completá todos los campos obligatorios.","error");
         return;
 
     }
@@ -1258,11 +1373,7 @@ document.getElementById("formHoras").addEventListener("submit",async function(e)
             }
         );
 
-        mostrarMensaje(
-            mensaje,
-            "¡Registro guardado correctamente!",
-            "success"
-        );
+        mostrarMensaje(mensaje,"¡Registro guardado correctamente!","success");
 
         this.reset();
 
@@ -1306,9 +1417,6 @@ async function cargarHistorial(){
     `;
 
     try{
-
-        // Se consultan hasta 10.000 registros por solicitud.
-        // Si tu historial supera ese volumen, conviene paginar.
 
         const datos = await consultarSupabase(
             API + "horas_extras?select=*&order=fecha.desc,created_at.desc&limit=10000"
@@ -1373,7 +1481,6 @@ function obtenerFiltrados(){
     return registros.filter(reg=>{
 
         if(desde && reg.fecha < desde) return false;
-
         if(hasta && reg.fecha > hasta) return false;
 
         if(operario){
@@ -1404,7 +1511,6 @@ function obtenerFiltrados(){
 function aplicarFiltros(){
 
     registrosFiltrados = obtenerFiltrados();
-
     renderizarHistorial();
 
 }
@@ -1438,14 +1544,9 @@ function renderizarHistorial(){
         registrosFiltrados.map(reg=>reg.operario_id)
     ).size;
 
-    document.getElementById("kpiRegistros").textContent =
-        registrosFiltrados.length;
-
-    document.getElementById("kpiHoras").textContent =
-        formatoHoras(totalHoras);
-
-    document.getElementById("kpiOperarios").textContent =
-        operariosDiferentes;
+    document.getElementById("kpiRegistros").textContent = registrosFiltrados.length;
+    document.getElementById("kpiHoras").textContent = formatoHoras(totalHoras);
+    document.getElementById("kpiOperarios").textContent = operariosDiferentes;
 
     document.getElementById("cantidadResultados").textContent =
         registrosFiltrados.length + " registros encontrados";
@@ -1454,9 +1555,7 @@ function renderizarHistorial(){
 
         tabla.innerHTML = `
             <tr>
-                <td colspan="9" class="empty">
-                    No se encontraron registros.
-                </td>
+                <td colspan="9" class="empty">No se encontraron registros.</td>
             </tr>
         `;
 
@@ -1497,13 +1596,9 @@ function obtenerRegistrosDashboard(){
     return registros.filter(reg=>{
 
         if(desde && reg.fecha < desde) return false;
-
         if(hasta && reg.fecha > hasta) return false;
-
         if(sector && reg.sector !== sector) return false;
-
         if(puesto && reg.puesto !== puesto) return false;
-
         if(turno && reg.turno !== turno) return false;
 
         return true;
@@ -1576,9 +1671,7 @@ function crearGrafico(id,tipo,etiquetas,valores,titulo,opcionesExtra={}){
             backgroundColor:esCircular
                 ? etiquetas.map((_,i)=>COLORES[i % COLORES.length])
                 : COLORES[0],
-            borderColor:esCircular
-                ? "#ffffff"
-                : COLORES[0],
+            borderColor:esCircular ? "#ffffff" : COLORES[0],
             borderWidth:esCircular ? 2 : 1,
             borderRadius:tipo === "bar" ? 5 : 0,
             tension:0.3,
@@ -1597,9 +1690,7 @@ function crearGrafico(id,tipo,etiquetas,valores,titulo,opcionesExtra={}){
             tooltip:{
                 callbacks:{
                     label:function(context){
-
                         return " " + formatoHoras(context.raw) + " horas";
-
                     }
                 }
             }
@@ -1611,15 +1702,11 @@ function crearGrafico(id,tipo,etiquetas,valores,titulo,opcionesExtra={}){
                     maxRotation:45,
                     minRotation:0
                 },
-                grid:{
-                    display:false
-                }
+                grid:{display:false}
             },
             y:{
                 beginAtZero:true,
-                ticks:{
-                    color:"#667085"
-                },
+                ticks:{color:"#667085"},
                 title:{
                     display:true,
                     text:"Horas extras"
@@ -1654,38 +1741,20 @@ function actualizarDashboard(){
         datos.map(reg=>reg.operario_id)
     ).size;
 
-    const promedio = datos.length
-        ? totalHoras / datos.length
-        : 0;
+    const promedio = datos.length ? totalHoras / datos.length : 0;
 
-    document.getElementById("dashKpiHoras").textContent =
-        formatoHoras(totalHoras);
-
-    document.getElementById("dashKpiRegistros").textContent =
-        datos.length;
-
-    document.getElementById("dashKpiOperarios").textContent =
-        operariosDiferentes;
-
-    document.getElementById("dashKpiPromedio").textContent =
-        formatoHoras(promedio);
+    document.getElementById("dashKpiHoras").textContent = formatoHoras(totalHoras);
+    document.getElementById("dashKpiRegistros").textContent = datos.length;
+    document.getElementById("dashKpiOperarios").textContent = operariosDiferentes;
+    document.getElementById("dashKpiPromedio").textContent = formatoHoras(promedio);
 
     document.getElementById("dashboardEstado").textContent =
-        datos.length +
-        " registros incluidos en las estadísticas.";
+        datos.length + " registros incluidos en las estadísticas.";
 
-    /* -----------------------------------------
-       1. HORAS POR SECTOR
-    ------------------------------------------ */
-
-    const porSector = agruparHoras(
-        datos,
-        reg=>reg.sector
-    );
+    const porSector = agruparHoras(datos,reg=>reg.sector);
 
     crearGrafico(
-        "graficoSector",
-        "bar",
+        "graficoSector","bar",
         porSector.map(item=>item[0]),
         porSector.map(item=>Number(item[1].toFixed(2))),
         "Horas por sector",
@@ -1694,32 +1763,17 @@ function actualizarDashboard(){
             scales:{
                 x:{
                     beginAtZero:true,
-                    title:{
-                        display:true,
-                        text:"Horas extras"
-                    }
+                    title:{display:true,text:"Horas extras"}
                 },
-                y:{
-                    ticks:{
-                        color:"#667085"
-                    }
-                }
+                y:{ticks:{color:"#667085"}}
             }
         }
     );
 
-    /* -----------------------------------------
-       2. HORAS POR PUESTO
-    ------------------------------------------ */
-
-    const porPuesto = agruparHoras(
-        datos,
-        reg=>reg.puesto
-    );
+    const porPuesto = agruparHoras(datos,reg=>reg.puesto);
 
     crearGrafico(
-        "graficoPuesto",
-        "bar",
+        "graficoPuesto","bar",
         porPuesto.map(item=>item[0]),
         porPuesto.map(item=>Number(item[1].toFixed(2))),
         "Horas por puesto",
@@ -1728,23 +1782,12 @@ function actualizarDashboard(){
             scales:{
                 x:{
                     beginAtZero:true,
-                    title:{
-                        display:true,
-                        text:"Horas extras"
-                    }
+                    title:{display:true,text:"Horas extras"}
                 },
-                y:{
-                    ticks:{
-                        color:"#667085"
-                    }
-                }
+                y:{ticks:{color:"#667085"}}
             }
         }
     );
-
-    /* -----------------------------------------
-       3. EVOLUCIÓN MENSUAL
-    ------------------------------------------ */
 
     const porMes = {};
 
@@ -1780,30 +1823,20 @@ function actualizarDashboard(){
     });
 
     crearGrafico(
-        "graficoMensual",
-        "line",
+        "graficoMensual","line",
         etiquetasMeses,
         mesesOrdenados.map(mes=>Number(porMes[mes].toFixed(2))),
         "Evolución mensual",
         {
-            plugins:{
-                legend:{display:false}
-            },
+            plugins:{legend:{display:false}},
             scales:{
                 y:{
                     beginAtZero:true,
-                    title:{
-                        display:true,
-                        text:"Horas extras"
-                    }
+                    title:{display:true,text:"Horas extras"}
                 }
             }
         }
     );
-
-    /* -----------------------------------------
-       4. RANKING DE OPERARIOS
-    ------------------------------------------ */
 
     const porOperario = agruparHoras(
         datos,
@@ -1813,8 +1846,7 @@ function actualizarDashboard(){
     ).slice(0,10);
 
     crearGrafico(
-        "graficoOperarios",
-        "bar",
+        "graficoOperarios","bar",
         porOperario.map(item=>item[0]),
         porOperario.map(item=>Number(item[1].toFixed(2))),
         "Ranking de operarios",
@@ -1823,52 +1855,31 @@ function actualizarDashboard(){
             scales:{
                 x:{
                     beginAtZero:true,
-                    title:{
-                        display:true,
-                        text:"Horas extras"
-                    }
+                    title:{display:true,text:"Horas extras"}
                 },
                 y:{
                     ticks:{
                         color:"#667085",
-                        font:{
-                            size:10
-                        }
+                        font:{size:10}
                     }
                 }
             }
         }
     );
 
-    /* -----------------------------------------
-       5. HORAS POR RESPONSABLE
-    ------------------------------------------ */
-
-    const porResponsable = agruparHoras(
-        datos,
-        reg=>reg.responsable
-    );
+    const porResponsable = agruparHoras(datos,reg=>reg.responsable);
 
     crearGrafico(
-        "graficoResponsable",
-        "doughnut",
+        "graficoResponsable","doughnut",
         porResponsable.map(item=>item[0]),
         porResponsable.map(item=>Number(item[1].toFixed(2))),
         "Horas por responsable"
     );
 
-    /* -----------------------------------------
-       6. HORAS POR TURNO
-    ------------------------------------------ */
-
-    const porTurno = agruparHoras(
-        datos,
-        reg=>reg.turno
-    );
+    const porTurno = agruparHoras(datos,reg=>reg.turno);
 
     crearGrafico(
-        "graficoTurno",
-        "doughnut",
+        "graficoTurno","doughnut",
         porTurno.map(item=>item[0]),
         porTurno.map(item=>Number(item[1].toFixed(2))),
         "Horas por turno"
@@ -1883,19 +1894,13 @@ function actualizarDashboard(){
 function exportarExcel(){
 
     if(typeof XLSX === "undefined"){
-
         alert("No se pudo cargar la herramienta de Excel. Revisá tu conexión.");
-
         return;
-
     }
 
     if(registrosFiltrados.length === 0){
-
         alert("No hay registros para exportar.");
-
         return;
-
     }
 
     const datos = registrosFiltrados.map(reg=>({
@@ -1915,15 +1920,8 @@ function exportarExcel(){
     const hoja = XLSX.utils.json_to_sheet(datos);
 
     hoja["!cols"] = [
-        {wch:13},
-        {wch:13},
-        {wch:32},
-        {wch:20},
-        {wch:18},
-        {wch:13},
-        {wch:18},
-        {wch:40},
-        {wch:35}
+        {wch:13},{wch:13},{wch:32},{wch:20},{wch:18},
+        {wch:13},{wch:18},{wch:40},{wch:35}
     ];
 
     const libro = XLSX.utils.book_new();
@@ -1934,28 +1932,26 @@ function exportarExcel(){
         "Historial horas extras"
     );
 
-    const fecha = fechaLocal();
-
     XLSX.writeFile(
         libro,
-        "Historial_Horas_Extras_" + fecha + ".xlsx"
+        "Historial_Horas_Extras_" + fechaLocal() + ".xlsx"
     );
 
 }
 
 /* =====================================================
-   INICIO
+   INICIO DEL SISTEMA
 ===================================================== */
 
 async function iniciarSistema(){
+
+    document.getElementById("fecha").value = fechaLocal();
 
     await cargarOperarios();
 
     await cargarHistorial();
 
 }
-
-iniciarSistema();
 
 </script>
 
